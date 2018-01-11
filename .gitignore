@@ -1,0 +1,14 @@
+# IDE stuff #
+##################
+*.iml
+*.ec
+*.ipr
+*.iws
+.idea
+*/.idea
+*/*/target
+*/*/dependency-reduced-pom.xml
+target
+
+# Python
+*.pyc
