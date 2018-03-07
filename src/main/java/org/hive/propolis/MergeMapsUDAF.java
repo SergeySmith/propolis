@@ -191,7 +191,6 @@ public class MergeMapsUDAF extends AbstractGenericUDAFResolver {
         }
 
         protected T add(T x, T y) {
-
             if (x == null || y == null) {
                 return null;
             }
