@@ -2,6 +2,15 @@
 
 Propolis project is a collection of custom Hive UDFs that were not found (to the best of our current knowledge) in Hive.
 
+## Requirements 
+* Java 8 or later
+* Apache Maven
+* Apache Hadoop 2.6.0 or later
+* Apache Hive 1.2.1 to run tests with [HiveRunner](https://github.com/klarna/HiveRunner) (if you change Hive version don't forget to add `-DskipTests`)
+* HBase 1.2.0 or later
+
+(You can always try to build the project with your custom versions by editing pom.xml)
+
 ## Quickstart
 * Clone the sources and build the jar file:
 ```bash
@@ -10,6 +19,8 @@ $ cd propolis
 $ mvn clean package
 # or
 $ mvn clean package -DskipTests
+# Then to build jar with dependencies
+$ mvn assembly:single
 ```
 * Add jar to distributed cache:
 
