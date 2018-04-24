@@ -10,6 +10,7 @@ import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectIn
 import org.slf4j.LoggerFactory;
 
 import java.time.ZoneId;
+import java.util.Optional;
 
 @Description(
         name = "Get timezone from geo coordinates (lat, lon)",
@@ -72,8 +73,12 @@ public class GeoToTimeZoneUDF extends GenericUDF {
             engine = TimeZoneEngine.initialize();
         }
 
-        ZoneId zoneId = engine.query(lat, lon).get();
-        return zoneId.getId();
+        Optional<ZoneId> zoneId = engine.query(lat, lon);
+        if (zoneId.isPresent()) {
+            return zoneId.get().getId();
+        } else {
+            return null;
+        }
     }
 
     @Override
