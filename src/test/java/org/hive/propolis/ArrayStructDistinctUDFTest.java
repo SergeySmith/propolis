@@ -30,10 +30,11 @@ public class ArrayStructDistinctUDFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(named_struct('lat', 2.0, 'lon', 1.0), named_struct('lat', 2.0, 'lon', 2.0) ) as m "
+                "select 'u' as uid, array(named_struct('lat', double(2.1), 'lon', double(1.1)), named_struct('lat', double(2.1), 'lon', double(2.1)) ) as m "
                 + "union all "
-                + "select 'v' as uid, array(named_struct('lat', 2.0, 'lon', 1.0) ) as m "
+                + "select 'v' as uid, array(named_struct('lat', double(2.1), 'lon', double(1.1)) ) as m "
         );
+        printResult(expected);
 
         /*
          * Execute the query
@@ -41,10 +42,11 @@ public class ArrayStructDistinctUDFTest {
         shell.execute( "create temporary function "
             + "array_distinct as 'org.hive.propolis.ArrayStructDistinctUDF';"
             + "create temporary table data stored as ORC as "
-            + "select 'u' as uid, array(named_struct('lat', 2.0, 'lon', 1.0), named_struct('lat', 2.0, 'lon', 1.0), named_struct('lat', 2.0, 'lon', 2.0)) as ar "
+            + "select 'u' as uid, array(named_struct('lat', double(2.1), 'lon', double(1.1)), named_struct('lat', double(2.1), 'lon', double(1.1)), named_struct('lat', double(2.1), 'lon', double(2.1))) as ar "
             + "union all "
-            + "select 'v' as uid, array(named_struct('lat', 2.0, 'lon', 1.0), named_struct('lat', 2.0, 'lon', 1.0), named_struct('lat', 2.0, 'lon', 1.0)) as ar "
+            + "select 'v' as uid, array(named_struct('lat', double(2.1), 'lon', double(1.1)), named_struct('lat', double(2.1), 'lon', double(1.1)), named_struct('lat', double(2.1), 'lon', double(1.1))) as ar "
         );
+	printResult(shell.executeStatement("select uid, ar from data "));
 
         /*
          * Verify the result
@@ -55,7 +57,6 @@ public class ArrayStructDistinctUDFTest {
         );
 
         printResult(result);
-        printResult(expected);
 
         assert(expected.size() == 2);
         assertEquals(expected.size(), result.size());
@@ -69,9 +70,9 @@ public class ArrayStructDistinctUDFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(named_struct('a', 2.0, 'b', 1.0, 'c', 0.0), named_struct('a', 2.0, 'b', 2.0, 'c', 1.0) ) as m "
+                "select 'u' as uid, array(named_struct('a', double(2.0), 'b', double(1.0), 'c', double(0.0)), named_struct('a', double(2.0), 'b', double(2.0), 'c', double(1.0)) ) as m "
                         + "union all "
-                        + "select 'v' as uid, array(named_struct('a', 2.0, 'b', 1.0, 'c', 0.0) ) as m "
+                        + "select 'v' as uid, array(named_struct('a', double(2.0), 'b', double(1.0), 'c', double(0.0)) ) as m "
         );
 
         /*
@@ -80,9 +81,9 @@ public class ArrayStructDistinctUDFTest {
         shell.execute( "create temporary function "
                 + "array_distinct as 'org.hive.propolis.ArrayStructDistinctUDF';"
                 + "create temporary table data stored as ORC as "
-                + "select 'u' as uid, array(named_struct('a', 2.0, 'b', 1.0, 'c', 0.0), named_struct('a', 2.0, 'b', 1.0, 'c', 0.0), named_struct('a', 2.0, 'b', 2.0, 'c', 1.0)) as ar "
+                + "select 'u' as uid, array(named_struct('a', double(2.0), 'b', double(1.0), 'c', double(0.0)), named_struct('a', double(2.0), 'b', double(1.0), 'c', double(0.0)), named_struct('a', double(2.0), 'b', double(2.0), 'c', double(1.0))) as ar "
                 + "union all "
-                + "select 'v' as uid, array(named_struct('a', 2.0, 'b', 1.0, 'c', 0.0), named_struct('a', 2.0, 'b', 1.0, 'c', 0.0), named_struct('a', 2.0, 'b', 1.0, 'c', 0.0)) as ar "
+                + "select 'v' as uid, array(named_struct('a', double(2.0), 'b', double(1.0), 'c', double(0.0)), named_struct('a', double(2.0), 'b', double(1.0), 'c', double(0.0)), named_struct('a', double(2.0), 'b', double(1.0), 'c', double(0.0))) as ar "
         );
 
         /*
