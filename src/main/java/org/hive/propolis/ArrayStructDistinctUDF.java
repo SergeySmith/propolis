@@ -115,11 +115,11 @@ public class ArrayStructDistinctUDF extends GenericUDF {
 
             // First, are they primitives?
             if (toi.getCategory() != ObjectInspector.Category.PRIMITIVE)
-                throw new UDFArgumentTypeException(0, "Is input primitive? target field must be a bigint; found " + toi.getTypeName());
+                throw new UDFArgumentTypeException(0, "Is input primitive? target field must be primitive; found " + toi.getTypeName());
 
             // Second, are they the correct type of primitive?
             if (((PrimitiveObjectInspector) toi).getPrimitiveCategory() != PrimitiveObjectInspector.PrimitiveCategory.DOUBLE)
-                throw new UDFArgumentTypeException(0, "Is input correct primitive? target field must be a bigint; found " + toi.getTypeName());
+                throw new UDFArgumentTypeException(0, "Is input correct primitive? target field must be DOUBLE; found " + toi.getTypeName());
         }
 
         // If we get to here, the input is an array<struct>
