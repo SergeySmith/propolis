@@ -77,7 +77,7 @@
     <dependency>
       <groupId>org.apache.hive</groupId>
       <artifactId>hive-exec</artifactId>
-      <version>1.2.1</version>
+      <version>2.3.7</version>
       <!--<scope>provided</scope>-->
       <!--<optional>true</optional>-->
     </dependency>
@@ -104,7 +104,7 @@
     <dependency>
       <groupId>com.klarna</groupId>
       <artifactId>hiverunner</artifactId>
-      <version>3.2.0</version>
+      <version>5.2.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
