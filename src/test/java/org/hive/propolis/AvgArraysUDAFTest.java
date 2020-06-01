@@ -29,9 +29,9 @@ public class AvgArraysUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(1.5, 2.0) as m "
+                "select 'u' as uid, array(double(1.5), double(2.0)) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0) as m"
+                        + "select 'v' as uid, array(double(3.0)) as m"
         );
 
         /*
@@ -67,9 +67,9 @@ public class AvgArraysUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(1.5, 2.0) as m "
+                "select 'u' as uid, array(double(1.5), double(2.0)) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0, NULL) as m"
+                        + "select 'v' as uid, array(double(3.0), NULL) as m"
         );
 
         /*
@@ -107,9 +107,9 @@ public class AvgArraysUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(1.5, 2.0) as m "
+                "select 'u' as uid, array(double(1.5), double(2.0)) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0, NULL) as m"
+                        + "select 'v' as uid, array(double(3.0), NULL) as m"
         );
 
         /*
@@ -123,11 +123,11 @@ public class AvgArraysUDAFTest {
          * Verify the result
          */
         List<Object[]> result = shell.executeStatement("with t as ( "
-                + "select 'u' as uid, array(1.0, 2.0) as col "
+                + "select 'u' as uid, array(double(1.0), double(2.0)) as col "
                 + "union all "
-                + "select 'u' as uid, array(2.0, NULL) as col "
+                + "select 'u' as uid, array(double(2.0), NULL) as col "
                 + "union all "
-                + "select 'v' as uid, array(3.0, NULL) as col "
+                + "select 'v' as uid, array(double(3.0), NULL) as col "
                 + ") "
                 + "select uid, avg_list(col) as m "
                 + "from t group by uid"

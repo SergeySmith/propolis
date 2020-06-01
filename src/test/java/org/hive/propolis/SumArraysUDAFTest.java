@@ -106,9 +106,9 @@ public class SumArraysUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(3.0, 2.0) as m "
+                "select 'u' as uid, array(double(3.0), double(2.0)) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0) as m"
+                        + "select 'v' as uid, array(double(3.0)) as m"
         );
 
         /*
@@ -122,11 +122,11 @@ public class SumArraysUDAFTest {
          * Verify the result
          */
         List<Object[]> result = shell.executeStatement("with t as ( "
-                + "select 'u' as uid, array(1.0, 2.0) as col "
+                + "select 'u' as uid, array(double(1.0), double(2.0)) as col "
                 + "union all "
-                + "select 'u' as uid, array(2.0) as col "
+                + "select 'u' as uid, array(double(2.0)) as col "
                 + "union all "
-                + "select 'v' as uid, array(3.0) as col "
+                + "select 'v' as uid, array(double(3.0)) as col "
                 + ") "
                 + "select uid, sum_list(col) as m "
                 + "from t group by uid"
@@ -144,9 +144,9 @@ public class SumArraysUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(2.0, 1.0, 2.0) as m "
+                "select 'u' as uid, array(double(2.0), double(1.0), double(2.0)) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0, 0.0) as m"
+                        + "select 'v' as uid, array(double(3.0), double(0.0)) as m"
         );
 
         /*
@@ -160,11 +160,11 @@ public class SumArraysUDAFTest {
          * Verify the result
          */
         List<Object[]> result = shell.executeStatement("with t as ( "
-                + "select 'u' as uid, array(NULL, 1.0, 2.0) as col "
+                + "select 'u' as uid, array(NULL, double(1.0), double(2.0)) as col "
                 + "union all "
-                + "select 'u' as uid, array(2.0) as col "
+                + "select 'u' as uid, array(double(2.0)) as col "
                 + "union all "
-                + "select 'v' as uid, array(3.0, NULL) as col "
+                + "select 'v' as uid, array(double(3.0), NULL) as col "
                 + ") "
                 + "select uid, sum_list(col) as m "
                 + "from t group by uid"

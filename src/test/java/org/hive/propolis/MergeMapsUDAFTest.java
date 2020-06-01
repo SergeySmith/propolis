@@ -123,7 +123,7 @@ public class MergeMapsUDAFTest {
     @Test
     public void testDoubleValueMap() {
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, Map('a', 3.1, 'b', 2.2, 'c', 1.1) as m "
+                "select 'u' as uid, Map('a', double(3.1), 'b', double(2.2), 'c', double(1.1)) as m "
         );
 
         shell.execute( "create temporary function "
@@ -131,9 +131,9 @@ public class MergeMapsUDAFTest {
         );
 
         List<Object[]> result = shell.executeStatement("with t as ( "
-                + "select 'u' as uid, Map('a', 1.1, 'b', 2.2) as m "
+                + "select 'u' as uid, Map('a', double(1.1), 'b', double(2.2)) as m "
                 + "union all "
-                + "select 'u' as uid, Map('a', 2.0, 'c', 1.1) as m "
+                + "select 'u' as uid, Map('a', double(2.0), 'c', double(1.1)) as m "
                 + ") "
                 + "select uid, merge_map(m) as m "
                 + "from t group by uid"

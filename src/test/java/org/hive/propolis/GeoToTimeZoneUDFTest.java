@@ -38,11 +38,11 @@ public class GeoToTimeZoneUDFTest {
         );
 
         List<Object[]> result = shell.executeStatement("with temp_table as ( "
-                + "select 52.52 as lat, 13.40 as lon "
+                + "select double(52.52) as lat, double(13.40) as lon "
                 + "union all "
-                + "select null as lat, 1.01 as lon "
+                + "select null as lat, double(1.01) as lon "
                 + "union all "
-                + "select 56.52 as lat, 50.40 as lon ) "
+                + "select double(56.52) as lat, double(50.40) as lon ) "
                 + "select timezone(lat, lon) as tz from temp_table");
         printResult(result);
 

@@ -29,9 +29,9 @@ public class MultipleAvgUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(1.5, 1.0) as m "
+                "select 'u' as uid, array(double(1.5), double(1.0)) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0, 0.0) as m"
+                        + "select 'v' as uid, array(double(3.0), double(0.0)) as m"
         );
 
         /*
@@ -67,9 +67,9 @@ public class MultipleAvgUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(1.5, 2.0) as m "
+                "select 'u' as uid, array(double(1.5), double(2.0)) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0, NULL) as m"
+                        + "select 'v' as uid, array(double(3.0), NULL) as m"
         );
 
         /*
@@ -83,11 +83,11 @@ public class MultipleAvgUDAFTest {
          * Verify the result
          */
         List<Object[]> result = shell.executeStatement("with t as ( "
-                + "select 'u' as uid, 1.0 as col1, 2 as col2 "
+                + "select 'u' as uid, double(1.0) as col1, 2 as col2 "
                 + "union all "
-                + "select 'u' as uid, 2.0 as col1, NULL as col2 "
+                + "select 'u' as uid, double(2.0) as col1, NULL as col2 "
                 + "union all "
-                + "select 'v' as uid, 3.0 as col1, NULL as col2 "
+                + "select 'v' as uid, double(3.0) as col1, NULL as col2 "
                 + ") "
                 + "select uid, avg_all(col1, col2) as m "
                 + "from t group by uid"
@@ -105,9 +105,9 @@ public class MultipleAvgUDAFTest {
          * Insert some source data
          */
         List<Object[]> expected = shell.executeStatement(
-                "select 'u' as uid, array(1.5, NULL) as m "
+                "select 'u' as uid, array(double(1.5), NULL) as m "
                         + "union all "
-                        + "select 'v' as uid, array(3.0, NULL) as m"
+                        + "select 'v' as uid, array(double(3.0), NULL) as m"
         );
 
         /*
@@ -121,11 +121,11 @@ public class MultipleAvgUDAFTest {
          * Verify the result
          */
         List<Object[]> result = shell.executeStatement("with t as ( "
-                + "select 'u' as uid, 1.0 as col1, NULL as col2 "
+                + "select 'u' as uid, double(1.0) as col1, NULL as col2 "
                 + "union all "
-                + "select 'u' as uid, 2.0 as col1, NULL as col2 "
+                + "select 'u' as uid, double(2.0) as col1, NULL as col2 "
                 + "union all "
-                + "select 'v' as uid, 3.0 as col1, NULL as col2 "
+                + "select 'v' as uid, double(3.0) as col1, NULL as col2 "
                 + ") "
                 + "select uid, avg_all(col1, col2) as m "
                 + "from t group by uid"
@@ -143,9 +143,9 @@ public class MultipleAvgUDAFTest {
 //         * Insert some source data
 //         */
 //        List<Object[]> expected = shell.executeStatement(
-//                "select 'u' as uid, array(1.5, 1.0) as m "
+//                "select 'u' as uid, array(double(1.5), double(1.0)) as m "
 //                        + "union all "
-//                        + "select 'v' as uid, array(3.0, 0.0) as m"
+//                        + "select 'v' as uid, array(double(3.0), double(0.0)) as m"
 //        );
 //
 //        /*
